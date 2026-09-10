@@ -1,41 +1,52 @@
-package Case_Study_on_ExceptionHandling;
 import java.util.Scanner;
 
+class employee {
+    int employeeId;
+    String name;
+    double basicsalary;
+
+    double calculateHRA() {
+        return basicsalary * 0.20;
+    }
+
+    double calculateDA() {
+        return basicsalary * 0.10;
+    }
+
+    double grossSalary() {
+        return basicsalary + calculateHRA() + calculateDA();
+    }
+
+    void display() {
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Name: " + name);
+        System.out.println("Basic Salary: " + basicsalary);
+        System.out.println("HRA: " + calculateHRA());
+        System.out.println("DA: " + calculateDA());
+        System.out.println("Gross Salary: " + grossSalary());
+    }
+}
+
 public class case3 {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        try {
-            System.out.print("Enter number of subjects: ");
-            int n = sc.nextInt();
+        employee e = new employee();
 
-            if (n <= 0) {
-                throw new Exception("No subjects entered");
-            }
+        System.out.print("Enter employee ID: ");
+        e.employeeId = sc.nextInt();
 
-            int total = 0;
+        sc.nextLine();
 
-            for (int i = 1; i <= n; i++) {
+        System.out.print("Enter employee name: ");
+        e.name = sc.nextLine();
 
-                System.out.print("Enter marks: ");
-                int marks = sc.nextInt();
+        System.out.print("Enter basic salary: ");
+        e.basicsalary = sc.nextDouble();
 
-                if (marks < 0 || marks > 100) {
-                    throw new Exception("Marks must be between 0 and 100");
-                }
-
-                total = total + marks;
-            }
-
-            double average = total / (double)n;
-
-            System.out.println("Total: " + total);
-            System.out.println("Average: " + average);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        e.display();
 
         sc.close();
     }

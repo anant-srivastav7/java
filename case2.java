@@ -1,34 +1,57 @@
-package Case_Study_on_ExceptionHandling;
 import java.util.Scanner;
+
+class BankAccount{ 
+    int accountnumber;
+    String accountholder;
+    double balance;
+
+    void deposit(double amount) {
+        balance = balance + amount;
+        System.out.println("Amount deposited: " + amount);
+    }
+
+    void withdraw(double amount) {
+        if (amount <= balance) {
+            balance = balance - amount;
+            System.out.println("Amount withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance.");
+        }
+    }
+
+    void displayBalance() {
+        System.out.println("\nAccount Number: " + accountnumber);
+        System.out.println("Account Holder: " + accountholder);
+        System.out.println("Balance: " + balance);
+    }
+}
 
 public class case2 {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
+        BankAccount b = new BankAccount();
 
-        double balance = 10000;
-        double amount;
-        try {
-            System.out.print("Enter withdrawal amount: ");
-            amount = sc.nextDouble();
+        System.out.print("Enter account number: ");
+        b.accountnumber = sc.nextInt();
+        sc.nextLine(); 
 
-            if (amount <= 0) {
-                throw new Exception("Invalid withdrawal amount");
-            }
+        System.out.print("Enter account holder name: ");
+        b.accountholder = sc.nextLine();
 
-            if (amount > balance) {
-                throw new Exception("Insufficient balance");
-            }
+        System.out.print("Enter initial balance: ");
+        b.balance = sc.nextDouble();
+        b.displayBalance();
 
-            balance = balance - amount;
+        System.out.print("\nEnter amount to deposit: ");
+        double depositAmount = sc.nextDouble();
+        b.deposit(depositAmount);
 
-            System.out.println("Withdrawal successful");
-            System.out.println("Remaining balance: " + balance);
+        System.out.print("Enter amount to withdraw: ");
+        double withdrawAmount = sc.nextDouble();
+        b.withdraw(withdrawAmount);
 
-        } 
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+        b.displayBalance();
         sc.close();
     }
+    
 }
