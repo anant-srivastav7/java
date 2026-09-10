@@ -1,71 +1,53 @@
+package Case_Study_on_ExceptionHandling;
 import java.util.Scanner;
 
-class Product {
-    int productId;
-    String productName;
-    double price;
-    int quantity;
-
-    double totalCost() {
-        return price * quantity;
-    }
-}
-
 public class case4 {
-
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
-        Product p1 = new Product();
-        Product p2 = new Product();
+        try {
+            System.out.print("Enter product price: ");
+            double price = sc.nextDouble();
 
-        System.out.print("Enter product 1 ID: ");
-        p1.productId = sc.nextInt();
+            System.out.print("Enter quantity: ");
+            int quantity = sc.nextInt();
 
-        sc.nextLine();
+            System.out.print("Enter discount percentage: ");
+            double discount = sc.nextDouble();
 
-        System.out.print("Enter product 1 name: ");
-        p1.productName = sc.nextLine();
+            if (price <= 0) {
+                throw new Exception("Invalid product price");
+            }
 
-        System.out.print("Enter product 1 price: ");
-        p1.price = sc.nextDouble();
+            if (quantity <= 0) {
+                throw new Exception("Invalid quantity");
+            }
 
-        System.out.print("Enter product 1 quantity: ");
-        p1.quantity = sc.nextInt();
+            if (discount < 0 || discount > 100) {
+                throw new Exception("Invalid discount percentage");
+            }
 
-        sc.nextLine();
+            double bill = price * quantity;
+            bill = bill - (bill * discount / 100);
 
-        System.out.print("Enter product 2 ID: ");
-        p2.productId = sc.nextInt();
+            System.out.println("Final Bill: " + bill);
 
-        sc.nextLine();
+            System.out.print("Enter payment amount: ");
+            double payment = sc.nextDouble();
 
-        System.out.print("Enter product 2 name: ");
-        p2.productName = sc.nextLine();
+            if (payment < bill) {
+                throw new Exception("Payment amount is less than the bill");
+            }
 
-        System.out.print("Enter product 2 price: ");
-        p2.price = sc.nextDouble();
+            System.out.println("Payment successful");
+            System.out.println("Change: " + (payment - bill));
 
-        System.out.print("Enter product 2 quantity: ");
-        p2.quantity = sc.nextInt();
-
-        double totalBill = p1.totalCost() + p2.totalCost();
-
-        System.out.println("\nProduct 1 Total: ₹" + p1.totalCost());
-        System.out.println("Product 2 Total: ₹" + p2.totalCost());
-        System.out.println("Total Bill: ₹" + totalBill);
-
-        if (totalBill > 5000) {
-            double discount = totalBill * 0.10;
-            double finalBill = totalBill - discount;
-
-            System.out.println("Discount: ₹" + discount);
-            System.out.println("Final Bill: ₹" + finalBill);
-        } else {
-            System.out.println("No Discount");
+        } catch(Exception e){
+            System.out.println(e.getMessage());
         }
-
         sc.close();
+
+
     }
 }
